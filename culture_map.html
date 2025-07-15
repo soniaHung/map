@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>文化資源互動地圖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link 
+    rel="stylesheet" 
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: "Noto Sans TC", sans-serif;
+      display: flex;
+      flex-direction: row;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    #map {
+      flex: 1;
+      height: 100%;
+    }
+
+    #sidebar {
+      width: 400px;
+      max-width: 100%;
+      background: #f8f8fc;
+      overflow-y: auto;
+      padding: 1rem;
+      box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+      border-left: 4px solid #4c7ef3;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      margin-top: 0;
+      color: #2c3e50;
+    }
+
+    b {
+      color: #444;
+    }
+
+    img, video {
+      width: 100%;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+    }
+
+    details {
+      margin: 0.5rem 0;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+      #map {
+        height: 50vh;
+      }
+      #sidebar {
+        width: 100%;
+        height: 50vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h3>文化資源互動地圖</h3>
+  <div id="map"></div>
+  <div id="sidebar">
+    <div id="info">請點選地圖上的標記查看詳細資訊</div>
+    <div id="info"></div>
+  </div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('map').setView([24.9733168, 121.54], 15);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    var geojson = {"type": "FeatureCollection", "features": [{"type": "Feature", "geometry": {"type": "Point", "coordinates": [121.54, 24.9733168]}, "properties": {"title": "\u8b66\u5bdf\u5bbf\u820d - \u7da0\u7f8e\u5316\u820a\u5bbf\u820d\u62c6\u9664\u7684\u9592\u7f6e\u7a7a\u9593", "\u8cc7\u6e90\u985e\u578b": "\u5730", "\u898f\u6a21": "", "\u64c1\u6709\u4eba": "", "\u5176\u4ed6": "", "media_html": "<a href=\"https://drive.google.com/uc?export=view&id=1X1Wx3mk2988xgvmX-mPfFTlJnYLA1V15\" target=\"_blank\">\u57161</a><br><a href=\"https://drive.google.com/uc?export=view&id=1H8xywJF2mDCnbntDcI6Gom2U4VwHRPOz\" target=\"_blank\">\u57162</a><br><a href=\"https://drive.google.com/uc?export=view&id=1wZOPROPJiR5RWQcsSXBTSVg0oypo6fdv\" target=\"_blank\">\u57163</a><br><a href=\"https://drive.google.com/uc?export=view&id=1TaonUYMg3e8KhK6LYrWMfaVPGH5e8-xi\" target=\"_blank\">\u57164</a><br>"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [121.549209, 25.030377]}, "properties": {"title": "\u7460\u516c\u5733\u53ca\u5169\u5cb8 - \u7b2c3\u5ea7\u6a4b", "\u8cc7\u6e90\u985e\u578b": "\u5730", "\u898f\u6a21": "", "\u64c1\u6709\u4eba": "", "\u5176\u4ed6": "\u6709\u9999\u5473", "media_html": "<a href=\"https://drive.google.com/file/d/1VgPoEJ_-qiWvaMzpKfxY9_5-o9hq6wah/view?usp=drive_link\" target=\"_blank\">\u57161</a><br><a href=\"https://drive.google.com/uc?export=view&id=1Ux-YF2kNRbatPQCyuflqHGbOnBbtKJQr\" target=\"_blank\">\u57162</a><br>"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [121.5417037, 24.9773211]}, "properties": {"title": "\u7460\u516c\u5733\u53ca\u5169\u5cb8 - \u7b2c1\u5ea7\u6a4b-\u660e\u5fb7\u6a4b", "\u8cc7\u6e90\u985e\u578b": "\u5730", "\u898f\u6a21": "", "\u64c1\u6709\u4eba": "", "\u5176\u4ed6": "", "media_html": "<a href=\"https://drive.google.com/uc?export=view&id=1GQIqBG5sAR-bz09MGu2UU116AyE2U1QL\" target=\"_blank\">\u57161</a><br>"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [121.5419191, 24.9774094]}, "properties": {"title": "\u7460\u516c\u5733\u53ca\u5169\u5cb8 - \u88dd\u98fe", "\u8cc7\u6e90\u985e\u578b": "\u4e94\u611f", "\u898f\u6a21": "", "\u64c1\u6709\u4eba": "", "\u5176\u4ed6": "", "media_html": "<a href=\"https://drive.google.com/uc?export=view&id=1mHQ4nezVKv7b_RZfB6XHOxl6XWRRzSkz\" target=\"_blank\">\u57161</a><br>"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [121.5418529, 24.9777036]}, "properties": {"title": "\u7460\u516c\u5733\u53ca\u5169\u5cb8 - \u4fbf\u6c11\u6a4b", "\u8cc7\u6e90\u985e\u578b": "\u5730", "\u898f\u6a21": "", "\u64c1\u6709\u4eba": "", "\u5176\u4ed6": "", "media_html": "<a href=\"https://drive.google.com/uc?export=view&id=1BuVNpeA8S1rXaNYbrgKRP3oGQ1ba3S2X\" target=\"_blank\">\u57161</a><br><a href=\"https://drive.google.com/uc?export=view&id=1VVYXa5GaTMWBh9Cvum70ASTVrrlDiS67\" target=\"_blank\">\u57162</a><br>"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [121.5417636, 24.97721725]}, "properties": {"title": "\u7460\u516c\u5733\u53ca\u5169\u5cb8 - \u53f3\u5cb8\u5fe0\u8aa0\u91cc", "\u8cc7\u6e90\u985e\u578b": "\u4e94\u611f", "\u898f\u6a21": "", "\u64c1\u6709\u4eba": "", "\u5176\u4ed6": "", "media_html": "<a href=\"https://drive.google.com/uc?export=view&id=169TNnS8ZYhIGPaFi8lTXssbUPdC0YAwX\" target=\"_blank\">\u57161</a><br>"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [121.5415909, 24.976446]}, "properties": {"title": "\u7460\u516c\u5733\u53ca\u5169\u5cb8 - \u7b2c2\u5ea7\u6a4b\uff0c\u6b65\u9053\u6a4b", "\u8cc7\u6e90\u985e\u578b": "\u5730", "\u898f\u6a21": "18\u6b65", "\u64c1\u6709\u4eba": "", "\u5176\u4ed6": "", "media_html": "<a href=\"https://drive.google.com/uc?export=view&id=1VgPoEJ_-qiWvaMzpKfxY9_5-o9hq6wah\" target=\"_blank\">\u57161</a><br>"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [121.5416659, 24.974079]}, "properties": {"title": "\u7460\u516c\u5733\u53ca\u5169\u5cb8 - \u5c0f\u6b65\u9053", "\u8cc7\u6e90\u985e\u578b": "\u5730", "\u898f\u6a21": "", "\u64c1\u6709\u4eba": "\u5fe0\u8aa0\u91cc", "\u5176\u4ed6": "", "media_html": "<a href=\"https://drive.google.com/uc?export=view&id=12B5h1OrfOaEFixHu20XLpdbeFFp9pKRL\" target=\"_blank\">\u57161</a><br>"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [121.5416239, 24.9740756]}, "properties": {"title": "\u7460\u516c\u5733\u53ca\u5169\u5cb8 - \u7b2c4\u5ea7\u6a4b\uff0c\u4eba\u8eca\u5206\u9694", "\u8cc7\u6e90\u985e\u578b": "\u5730", "\u898f\u6a21": "", "\u64c1\u6709\u4eba": "", "\u5176\u4ed6": "", "media_html": "<a href=\"https://drive.google.com/uc?export=view&id=1i7ahB0fhIW2jc8zRnxamP3ajaE4VdzYS\" target=\"_blank\">\u57161</a><br><a href=\"https://drive.google.com/uc?export=view&id=1a5KDx_KxfELmjY8m8FvF2DgV-T-SGXre\" target=\"_blank\">\u57162</a><br>"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [121.5416998, 24.97727094]}, "properties": {"title": "\u7460\u516c\u5733\u53ca\u5169\u5cb8 - \u4f11\u9592\u904b\u52d5", "\u8cc7\u6e90\u985e\u578b": "\u4eba", "\u898f\u6a21": "", "\u64c1\u6709\u4eba": "", "\u5176\u4ed6": "", "media_html": "<a href=\"https://drive.google.com/uc?export=view&id=1aPuYF9hbMDHqqH5upDs_ywZVrGvtOBuk\" target=\"_blank\">\u57161</a><br><a href=\"https://drive.google.com/uc?export=view&id=1s-Dd4YEW4lkkbmFXhNiC1XZ53uRCRPTu\" target=\"_blank\">\u57162</a><br>"}}, {"type": "Feature", "geometry": {"type": "Point", "coordinates": [121.5421649, 24.9753068]}, "properties": {"title": "\u7460\u516c\u5733\u53ca\u5169\u5cb8 - \u96fb\u529b\u516c\u53f8\u5916\u7246", "\u8cc7\u6e90\u985e\u578b": "\u4eba", "\u898f\u6a21": "", "\u64c1\u6709\u4eba": "\u53f0\u96fb", "\u5176\u4ed6": "", "media_html": "<a href=\"https://drive.google.com/uc?export=view&id=1ezwVww-T32JxgscOQjweCi-f2RHZYhIt\" target=\"_blank\">\u57161</a><br>"}}]};
+
+    function onEachFeature(feature, layer) {
+      if (feature.properties) {
+        var content = '<b>' + feature.properties.title + '</b><br/>' +
+                      '資源類型：' + feature.properties["資源類型"] + '<br/>' +
+                      '規模：' + feature.properties["規模"] + '<br/>' +
+                      '擁有人：' + feature.properties["擁有人"] + '<br/>' +
+                      '其他：' + feature.properties["其他"] + '<br/>' +
+                      feature.properties["media_html"];
+        layer.bindPopup(content, {maxWidth: 300});
+      }
+    }
+
+    function renderSidebarContent(props) {
+      document.getElementById("info").innerHTML = `
+        <h2>${props.title}</h2>
+        <b>資源類型：</b> ${props["資源類型"]}<br>
+        <b>規模：</b> ${props["規模"]}<br>
+        <b>擁有人：</b> ${props["擁有人"]}<br>
+        <b>其他：</b> ${props["其他"]}<br><br>
+        ${props.media_html}
+      `;
+    }
+
+    L.geoJSON(geojson, {
+      onEachFeature: function (feature, layer) {
+        layer.on("click", function () {
+          renderSidebarContent(feature.properties);
+        });
+        layer.bindTooltip(feature.properties.title, {
+          sticky: true,
+          direction: "top"
+        });
+      }
+    }).addTo(map);
+  </script>
+</body>
+</html>
